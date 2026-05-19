@@ -1,0 +1,120 @@
+\usepackage{luatexja}
+\usepackage{luatexja-ruby}
+\usepackage{luatexja-fontspec}
+\setmainjfont{HaranoAjiMincho-Regular}[BoldFont=HaranoAjiMincho-Bold]
+\setsansjfont{HaranoAjiGothic-Regular}
+\usepackage{emoji}
+\usepackage{xcolor}
+
+% --- Palette Parte 2 ---
+\definecolor{jpgreen}{HTML}{1A5C2E}
+\definecolor{jpnavy}{HTML}{1A3A6B}
+\definecolor{jpgold}{HTML}{C8A951}
+\definecolor{cream}{HTML}{FAFAF0}
+\definecolor{lightgray}{HTML}{F7F7F7}
+\definecolor{darkgray}{HTML}{555555}
+\definecolor{softgreen}{HTML}{D4EDDA}
+% New box colors
+\definecolor{readblue}{HTML}{2A4A8B}
+\definecolor{cultureamber}{HTML}{D4891A}
+\definecolor{comppurple}{HTML}{6B3A7B}
+\definecolor{coloquialteal}{HTML}{1A7B6B}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{booktabs, tabularx, longtable}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\tcbset{
+  vocabbox/.style={enhanced, breakable, colback=lightgray, colframe=jpnavy,
+    coltitle=white, fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=jpnavy, rounded corners}, rounded corners},
+  grammarbox/.style={enhanced, breakable, colback=white, colframe=jpgreen,
+    coltitle=white, fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=jpgreen, rounded corners}, rounded corners},
+  phrasebox/.style={enhanced, colback=cream, colframe=jpgold!80!black,
+    rounded corners, fonttitle=\bfseries},
+  kanjibox/.style={enhanced, breakable, colback=jpgold!8, colframe=jpgold!70!black,
+    coltitle=white, fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=jpgold!70!black, rounded corners}, rounded corners},
+  ejerciciobox/.style={enhanced, colback=softgreen!50, colframe=softgreen!80!black,
+    rounded corners, fonttitle=\bfseries, coltitle=darkgray},
+  % --- NEW Parte 2 styles ---
+  comparacionbox/.style={enhanced, breakable, colback=cream, colframe=comppurple,
+    coltitle=white, fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=comppurple, rounded corners}, rounded corners},
+  coloquialbox/.style={enhanced, colback=cream, colframe=coloquialteal,
+    coltitle=white, fonttitle=\bfseries,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=coloquialteal, rounded corners}, rounded corners},
+  culturaboxstyle/.style={enhanced, colback=cream, colframe=cultureamber,
+    coltitle=white, fonttitle=\bfseries,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=cultureamber, rounded corners}, rounded corners},
+  lecturabox/.style={enhanced, breakable, bicolor, colback=cream,
+    colbacklower=lightgray, colframe=readblue,
+    coltitle=white, fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=readblue, rounded corners}, rounded corners}
+}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=jpnavy, urlcolor=jpgreen}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries\color{jpgreen}}
+  {}{0pt}{\huge}[\vspace{0.3em}\color{jpgreen}\hrule height 1.5pt\vspace{0.3em}]
+\titleformat{\section}{\large\bfseries\color{jpnavy}}
+  {}{0em}{}[\vspace{0.1em}\color{jpnavy!40}\hrule height 0.4pt]
+
+% --- Inherited commands ---
+\newcommand{\ue}[1]{{\emoji{#1}}}
+\newcommand{\unidadheader}[4]{%
+  \begin{tcolorbox}[enhanced, colback=jpgreen!5, colframe=jpgreen,
+    coltitle=white, fonttitle=\bfseries\Large,
+    title={\emoji{seedling} Unidad #1 \enspace \ruby{#2}{} \enspace #3},
+    attach boxed title to top center={yshift=-3mm},
+    boxed title style={colback=jpgreen, rounded corners}]
+  \textit{\textcolor{jpnavy}{\emoji{speaking-head} Tema: #4}}
+  \end{tcolorbox}\vspace{0.5em}}
+\newcommand{\vocabitem}[4]{\ruby{#1}{#2} & #3 & \textcolor{darkgray}{\small\textit{#4}} \\[4pt]}
+\newcommand{\patron}[3]{%
+  \begin{tcolorbox}[grammarbox, title={\emoji{gear} #1}]
+  \begin{center}{\Large\textbf{#2}}\end{center}\vspace{0.3em}#3
+  \end{tcolorbox}}
+\newcommand{\ej}[2]{\par\vspace{0.2em}\hspace{1em}▶ \textbf{#1} \hfill {\small\textit{#2}}\vspace{0.1em}}
+\newcommand{\frase}[2]{%
+  \begin{tcolorbox}[phrasebox]\textbf{#1}\\[2pt]{\small\textit{#2}}\end{tcolorbox}\vspace{0.2em}}
+\newcommand{\kanjirow}[5]{{\LARGE #1} & #2 & #3 & #4 & #5 \\[4pt]}
+
+% --- New commands Parte 2 ---
+\newcommand{\comparacion}[4]{%
+  \begin{tcolorbox}[comparacionbox, title={\emoji{scales} #1}]
+  \begin{tabularx}{\linewidth}{XX}
+    \textcolor{jpnavy}{\textbf{#2}} & \textcolor{jpgreen}{\textbf{#3}} \\[4pt]
+  \end{tabularx}
+  \vspace{0.2em}\small #4
+  \end{tcolorbox}\vspace{0.2em}}
+
+\newcommand{\coloquial}[3]{%
+  \begin{tcolorbox}[coloquialbox, title={\emoji{speech-balloon} Forma Coloquial}]
+  \begin{tabularx}{\linewidth}{lX}
+    \textbf{Formal:}    & #1 \\[3pt]
+    \textbf{Coloquial:} & \textbf{#2} \\[3pt]
+    \textbf{Nota:}      & \small\textit{#3} \\
+  \end{tabularx}
+  \end{tcolorbox}\vspace{0.2em}}
+
+\newcommand{\culturabox}[2]{%
+  \begin{tcolorbox}[culturaboxstyle, title={\emoji{torii-gate} #1}]
+  #2
+  \end{tcolorbox}\vspace{0.2em}}
+
+\newcommand{\lectura}[2]{%
+  \begin{tcolorbox}[lecturabox, title={\emoji{open-book} 文章 — Lectura}]
+  #1
+  \tcblower
+  \textit{#2}
+  \end{tcolorbox}\vspace{0.2em}}
