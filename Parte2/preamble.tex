@@ -91,11 +91,13 @@
 
 % --- New commands Parte 2 ---
 \newcommand{\comparacion}[4]{%
-  \begin{tcolorbox}[comparacionbox, title={\emoji{scales} #1}]
-  \begin{tabularx}{\linewidth}{XX}
-    \textcolor{jpnavy}{\textbf{#2}} & \textcolor{jpgreen}{\textbf{#3}} \\[4pt]
-  \end{tabularx}
-  \vspace{0.2em}\small #4
+  \begin{tcolorbox}[comparacionbox, title={⚖ #1}]
+  \noindent\begin{minipage}[t]{0.47\linewidth}
+    \textcolor{jpnavy}{\textbf{#2}}
+  \end{minipage}\hfill\begin{minipage}[t]{0.47\linewidth}
+    \textcolor{jpgreen}{\textbf{#3}}
+  \end{minipage}\par
+  \vspace{0.4em}\small #4
   \end{tcolorbox}\vspace{0.2em}}
 
 \newcommand{\coloquial}[3]{%
@@ -108,7 +110,7 @@
   \end{tcolorbox}\vspace{0.2em}}
 
 \newcommand{\culturabox}[2]{%
-  \begin{tcolorbox}[culturaboxstyle, title={\emoji{torii-gate} #1}]
+  \begin{tcolorbox}[culturaboxstyle, title={⛩ #1}]
   #2
   \end{tcolorbox}\vspace{0.2em}}
 
