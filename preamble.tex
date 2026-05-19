@@ -3,13 +3,20 @@
 \usepackage{luatexja-ruby}
 \usepackage[match,deluxe]{luatexja-fontspec}
 
+% === Emoji fallback: Unicode inline emojis → Segoe UI Emoji ===
+\directlua{
+  luaotfload.add_fallback("emojifb", {
+    "Segoe UI Emoji:mode=harf;"
+  })
+}
+
 % === Fuentes japonesas (Windows 10 fonts) ===
-\setmainjfont{Yu Gothic}[BoldFont=Yu Gothic Bold, ItalicFont=Yu Gothic, BoldItalicFont=Yu Gothic Bold]
-\setsansjfont{Yu Gothic}
+\setmainjfont{Yu Gothic}[BoldFont=Yu Gothic Bold, ItalicFont=Yu Gothic, BoldItalicFont=Yu Gothic Bold, RawFeature={fallback=emojifb}]
+\setsansjfont{Yu Gothic}[RawFeature={fallback=emojifb}]
 
 % === Fuentes latinas ===
-\setmainfont{Georgia}
-\setsansfont{Calibri}
+\setmainfont{Georgia}[RawFeature={fallback=emojifb}]
+\setsansfont{Calibri}[RawFeature={fallback=emojifb}]
 
 % === Emoji ===
 % Instalar via MiKTeX Package Manager: "emoji"
