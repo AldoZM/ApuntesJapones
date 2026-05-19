@@ -1,0 +1,172 @@
+% preamble.tex
+\usepackage{luatexja}
+\usepackage{luatexja-ruby}
+\usepackage[match,deluxe]{luatexja-fontspec}
+
+% === Emoji fallback: Unicode inline emojis → Segoe UI Emoji ===
+\directlua{
+  luaotfload.add_fallback("emojifb", {
+    "Segoe UI Emoji:mode=harf;"
+  })
+}
+
+% === Fuentes japonesas (Windows 10 fonts) ===
+\setmainjfont{Yu Gothic}[BoldFont=Yu Gothic Bold, ItalicFont=Yu Gothic, BoldItalicFont=Yu Gothic Bold, RawFeature={fallback=emojifb}]
+\setsansjfont{Yu Gothic}[RawFeature={fallback=emojifb}]
+
+% === Fuentes latinas ===
+\setmainfont{Georgia}[RawFeature={fallback=emojifb}]
+\setsansfont{Calibri}[RawFeature={fallback=emojifb}]
+
+% === Emoji ===
+% Instalar via MiKTeX Package Manager: "emoji"
+\usepackage{emoji}
+% Si emoji package no disponible, comentar la línea anterior
+% y usar: \newcommand{\emoji}[1]{#1}
+
+% === Colores ===
+\usepackage{xcolor}
+\definecolor{jpred}{HTML}{BC002D}
+\definecolor{jpblue}{HTML}{1A3A6B}
+\definecolor{jpgold}{HTML}{C8A951}
+\definecolor{sakura}{HTML}{FFB7C5}
+\definecolor{lightgray}{HTML}{F7F7F7}
+\definecolor{darkgray}{HTML}{555555}
+\definecolor{softgreen}{HTML}{D4EDDA}
+
+% === Diseño de página ===
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+
+% === Tablas ===
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+
+% === tcolorbox ===
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+\tcbset{
+  vocabbox/.style={
+    enhanced, breakable,
+    colback=lightgray, colframe=jpblue,
+    coltitle=white, fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=jpblue, rounded corners},
+    rounded corners
+  },
+  grammarbox/.style={
+    enhanced, breakable,
+    colback=white, colframe=jpred,
+    coltitle=white, fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=jpred, rounded corners},
+    rounded corners
+  },
+  phrasebox/.style={
+    enhanced,
+    colback=sakura!15, colframe=sakura!80!black,
+    rounded corners, fonttitle=\bfseries
+  },
+  kanjibox/.style={
+    enhanced, breakable,
+    colback=jpgold!8, colframe=jpgold!70!black,
+    coltitle=white, fonttitle=\bfseries\large,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=jpgold!70!black, rounded corners},
+    rounded corners
+  },
+  ejerciciobox/.style={
+    enhanced,
+    colback=softgreen!50, colframe=softgreen!80!black,
+    rounded corners, fonttitle=\bfseries,
+    coltitle=darkgray
+  }
+}
+
+% === Hyperref ===
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=jpblue,
+  urlcolor=jpred,
+  pdftitle={Apuntes de Japonés N5-N4},
+  pdfauthor={Aldo ZM}
+}
+
+% === Títulos ===
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{jpred}}{}
+  {0pt}{\huge}
+  [\vspace{0.3em}\color{jpred}\hrule height 1.5pt\vspace{0.3em}]
+
+\titleformat{\section}
+  {\large\bfseries\color{jpblue}}{}
+  {0em}{}
+  [\vspace{0.1em}\color{jpblue!40}\hrule height 0.4pt]
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{darkgray}}{}
+  {0em}{}
+
+% =============================================
+% COMANDOS CUSTOM
+% =============================================
+
+% Encabezado visual de unidad
+% #1=número, #2=kanji título, #3=título español, #4=tema comunicativo
+\newcommand{\unidadheader}[4]{%
+  \begin{tcolorbox}[
+    enhanced, colback=jpred!5, colframe=jpred,
+    coltitle=white, fonttitle=\bfseries\Large,
+    title={🎌 Unidad #1 \enspace \ruby{#2}{} \enspace #3},
+    attach boxed title to top center={yshift=-3mm},
+    boxed title style={colback=jpred, rounded corners}
+  ]
+  \textit{\textcolor{jpblue}{🗣️ Tema comunicativo: #4}}
+  \end{tcolorbox}
+  \vspace{0.5em}
+}
+
+% Entrada de vocabulario
+% #1=kanji+kana, #2=furigana, #3=español, #4=tipo gramatical
+\newcommand{\vocabitem}[4]{%
+  \ruby{#1}{#2} & #3 & \textcolor{darkgray}{\small\textit{#4}} \\[4pt]
+}
+
+% Patrón gramatical
+% #1=nombre patrón, #2=fórmula, #3=explicación+ejemplos
+\newcommand{\patron}[3]{%
+  \begin{tcolorbox}[grammarbox, title={⚙️ #1}]
+  \begin{center}{\Large\textbf{#2}}\end{center}
+  \vspace{0.3em}
+  #3
+  \end{tcolorbox}
+}
+
+% Ejemplo dentro de patrón
+% #1=japonés (con ruby), #2=español
+\newcommand{\ej}[2]{%
+  \par\vspace{0.2em}
+  \hspace{1em}▶ #1 \hfill {\small\textit{#2}}
+  \vspace{0.1em}
+}
+
+% Frase clave
+% #1=japonés, #2=español
+\newcommand{\frase}[2]{%
+  \begin{tcolorbox}[phrasebox]
+  \textbf{#1}\\[2pt]
+  {\small\textit{#2}}
+  \end{tcolorbox}
+  \vspace{0.2em}
+}
+
+% Entrada de kanji en tabla
+% #1=kanji, #2=lecturas on, #3=lecturas kun, #4=significado, #5=vocab ejemplo (con ruby)
+\newcommand{\kanjirow}[5]{%
+  {\LARGE #1} & #2 & #3 & #4 & #5 \\[4pt]
+}
